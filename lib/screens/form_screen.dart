@@ -129,7 +129,7 @@ class _FormScreenState extends State<FormScreen> {
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) => RegExp(
-                      r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$')
+                      r'^[\w-.]+@([\w-]+\.)+[\w]{2,4}$')
                       .hasMatch(value!)
                       ? null
                       : 'Correo inválido',
