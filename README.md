@@ -35,15 +35,15 @@ En la pantalla inicial, el usuario puede:
 - **Iniciar sesión** si ya tiene una cuenta.
 - **Registrarse** si es un nuevo usuario.
 
-El formulario alterna entre **Login** y **Registro** de dinámica.  
+El formulario alterna entre **Login** y **Registro** de manera dinámica.  
 Se muestra un `AlertDialog` confirmando que el usuario se registró con exito.  
-Después del login, el usuario es redirigido a la pantalla de formulario y ve un **mensaje de bienvenida** con su correo.
+Después del login, el usuario es redireccionado a la pantalla de formulario y ve un **mensaje de bienvenida** con su correo.
 
 ---
 
 ### Formulario de datos personales
 
-Una vez autenticado, el usuario accede a un formulario que solicita:
+Una vez que el usuario ha sido autenticado accede a un formulario que solicita:
 - **Nombre** (obligatorio)
 - **Edad** (número mayor que 0)
 - **Correo electrónico** (en formato válido)
@@ -54,7 +54,7 @@ Al enviar el formulario:
 - Los campos se limpian automáticamente.
 - Los datos se almacenan en una lista en memoria.
 
-Además, el usuario puede acceder a una pantalla donde se muestra la **lista de personas ingresadas**, con la posibilidad de **eliminar entradas**.
+Además, el usuario puede acceder a una pantalla donde se muestra la **lista de personas registradas**, con la opción de **eliminar entradas**.
 
 ---
 
