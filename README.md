@@ -17,12 +17,12 @@ El de proyecto tiene como objetivo combinar el uso de formularios y sus respecti
 
 
 ### Formulario
-![login](assets/screenshots/formulario.png)
-![login](assets/screenshots/validacion.png)
-![login](assets/screenshots/mensaje_formulario.png)
+![formulario](assets/screenshots/formulario.png)
+![validacion formulario](assets/screenshots/validacion.png)
+![mensaje formulario](assets/screenshots/mensaje_formulario.png)
 
 ### Lista
-![login](assets/screenshots/lista.png)
+![lista](assets/screenshots/lista.png)
 
 ---
 
