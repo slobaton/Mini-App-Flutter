@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'list_screen.dart';
 
 class FormScreen extends StatefulWidget {
+  final String userEmail;
+  FormScreen({required this.userEmail});
+
   @override
   _FormScreenState createState() => _FormScreenState();
 }
@@ -17,6 +20,26 @@ class _FormScreenState extends State<FormScreen> {
   String email = '';
   List<Map<String, dynamic>> people = [];
 
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text("¡Bienvenido!"),
+          content: Text("Has iniciado sesión como:\n${widget.userEmail}"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text("OK"),
+            ),
+          ],
+        ),
+      );
+    });
+  }
+
   void _submit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -25,7 +48,6 @@ class _FormScreenState extends State<FormScreen> {
         people.add({'name': name, 'age': age, 'email': email});
       });
 
-      // Mostrar diálogo de confirmación
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -35,8 +57,6 @@ class _FormScreenState extends State<FormScreen> {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-
-                // Limpiar campos
                 _nameController.clear();
                 _ageController.clear();
                 _emailController.clear();

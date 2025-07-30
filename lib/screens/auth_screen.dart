@@ -10,31 +10,35 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _isLogin = true; // Indica si estamos en modo login o registro
-  String _errorMessage = ''; // Para mostrar errores de Firebase
+  bool _isLogin = true;
+  String _errorMessage = '';
 
-  /// Método que ejecuta el login o el registro según el modo actual
   void _submit() async {
     try {
+      final email = _emailController.text.trim();
+      final password = _passwordController.text;
+
       if (_isLogin) {
         // LOGIN
         await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text,
+          email: email,
+          password: password,
         );
-        // Si el login fue exitoso, ir a la pantalla principal
+
+        // Ir a la pantalla de formulario con mensaje de bienvenida
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => FormScreen()),
+          MaterialPageRoute(
+            builder: (_) => FormScreen(userEmail: email),
+          ),
         );
       } else {
         // REGISTRO
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text,
+          email: email,
+          password: password,
         );
 
-        // Mostrar AlertDialog en lugar de SnackBar
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -42,9 +46,7 @@ class _AuthScreenState extends State<AuthScreen> {
             content: Text('Usuario registrado. Ahora puedes iniciar sesión.'),
             actions: [
               TextButton(
-                onPressed: () {
-                  Navigator.pop(context); // cerrar el diálogo
-                },
+                onPressed: () => Navigator.pop(context),
                 child: Text('Aceptar'),
               ),
             ],
@@ -52,18 +54,16 @@ class _AuthScreenState extends State<AuthScreen> {
         );
 
         setState(() {
-          _isLogin = true; // cambia al modo login después del registro
+          _isLogin = true;
         });
       }
     } catch (e) {
-      // Captura errores y los muestra debajo del botón
       setState(() {
         _errorMessage = e.toString();
       });
     }
   }
 
-  /// Cambia entre modo login y registro
   void _toggleForm() {
     setState(() {
       _isLogin = !_isLogin;
@@ -92,7 +92,6 @@ class _AuthScreenState extends State<AuthScreen> {
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 24),
-              // Campo de correo con borde tipo caja
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
@@ -101,7 +100,6 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ),
               SizedBox(height: 16),
-              // Campo de contraseña con borde tipo caja
               TextField(
                 controller: _passwordController,
                 obscureText: true,
@@ -111,7 +109,6 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ),
               SizedBox(height: 24),
-              // Mensaje de error si existe
               if (_errorMessage.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
@@ -120,12 +117,10 @@ class _AuthScreenState extends State<AuthScreen> {
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
-              // Botón principal (login o registro)
               ElevatedButton(
                 onPressed: _submit,
                 child: Text(buttonText),
               ),
-              // Botón para alternar entre login y registro
               TextButton(
                 onPressed: _toggleForm,
                 child: Text(toggleText),
